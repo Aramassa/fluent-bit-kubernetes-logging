@@ -18,9 +18,18 @@ data:
         HTTP_Listen   0.0.0.0
         HTTP_Port     2020
 
+    @INCLUDE input-forward.conf
     @INCLUDE input-kubernetes.conf
     @INCLUDE filter-kubernetes.conf
     @INCLUDE output-elasticsearch.conf
+
+  input-forward.conf: |
+    [INPUT]
+        Name              forward
+        Listen            0.0.0.0
+        Port              24224
+        Buffer_Chunk_Size 32KB
+        Buffer_Max_Size   64KB
 
   input-kubernetes.conf: |
     [INPUT]
